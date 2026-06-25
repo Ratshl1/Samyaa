@@ -1,177 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Samya Test</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Funny Question</title>
 
 <style>
-
-*{
+  body{
     margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
-body{
-    background:linear-gradient(135deg,#0f172a,#1e293b,#020617);
     height:100vh;
-    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
     color:white;
-    position:relative;
-}
+    overflow:hidden;
+  }
 
-/* Dragon */
-
-.dragon{
-    position:absolute;
-    right:0;
-    bottom:0;
-    height:100vh;
-    max-width:45%;
-    object-fit:contain;
-    pointer-events:none;
-    filter:
-        drop-shadow(0 0 20px rgba(255,255,255,.2))
-        drop-shadow(0 0 40px rgba(255,255,255,.1));
-}
-
-/* Main Card */
-
-.container{
-    z-index:10;
+  .container{
     text-align:center;
-
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(12px);
-
-    border:1px solid rgba(255,255,255,.15);
-
-    padding:40px;
-    border-radius:25px;
-
-    box-shadow:
-        0 0 30px rgba(255,255,255,.08);
-}
-
-h1{
-    font-size:2rem;
-    margin-bottom:30px;
-}
-
-/* Buttons Area */
-
-.buttons{
     position:relative;
-    width:320px;
-    height:160px;
-    margin:auto;
-}
+    width:100%;
+    height:100%;
+  }
 
-button{
+  h1{
+    margin-top:60px;
+    font-size:22px;
+  }
+
+  .btn{
+    padding:12px 25px;
+    margin:10px;
+    font-size:16px;
     border:none;
-    border-radius:15px;
-    padding:14px 35px;
-    font-size:20px;
     cursor:pointer;
-    transition:.2s;
-}
+    border-radius:8px;
+  }
 
-#yesBtn{
-    background:#22c55e;
+  #yesBtn{
+    background:green;
     color:white;
-    margin-right:20px;
-}
+  }
 
-#yesBtn:hover{
-    transform:scale(1.08);
-}
-
-#noBtn{
-    background:#ef4444;
+  #noBtn{
+    background:red;
     color:white;
     position:absolute;
-    left:180px;
-    top:0;
-}
+  }
 
-.message{
-    margin-top:25px;
-    font-size:28px;
-    font-weight:bold;
-    color:#7cff7c;
-}
+  #msg{
+    margin-top:20px;
+    font-size:20px;
+    color:yellow;
+  }
 
-/* Mobile */
-
-@media(max-width:768px){
-
-    .dragon{
-        opacity:.6;
-        max-width:60%;
-    }
-
-    h1{
-        font-size:1.3rem;
-    }
-
-    .container{
-        width:90%;
-    }
-}
-
+  .dragon{
+    position:fixed;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+    max-width:250px;
+    height:auto;
+  }
 </style>
 </head>
+
 <body>
 
-<img src="HEIF%20Image.heic" class="dragon">
-
 <div class="container">
+  <img class="dragon" src="HEIF Image.heic" alt="dragon image">
 
-<h1>Is Samya a dumb little girl?</h1>
+  <h1>is samya is a dumb little girl ?</h1>
 
-<div class="buttons">
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
-</div>
+  <button id="yesBtn" class="btn">yes</button>
+  <button id="noBtn" class="btn">no</button>
 
-<div id="message" class="message"></div>
-
+  <div id="msg"></div>
 </div>
 
 <script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const msg = document.getElementById("msg");
 
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const message = document.getElementById("message");
+  function moveButton(){
+    const padding = 20;
+    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-noBtn.addEventListener("click", () => {
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
 
-    const btnWidth = noBtn.offsetWidth;
-    const btnHeight = noBtn.offsetHeight;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
 
-    const maxX = window.innerWidth - btnWidth - 10;
-    const maxY = window.innerHeight - btnHeight - 10;
+  noBtn.addEventListener("mouseover", moveButton);
+  noBtn.addEventListener("click", moveButton);
 
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
+  yesBtn.addEventListener("click", () => {
+    msg.textContent = "you have good eyes kidoo";
+  });
 
-    noBtn.style.position = "fixed";
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
-});
-
-yesBtn.addEventListener("click", () => {
-
-    message.innerHTML =
-    "You have good eyes kiddo 😎";
-
-});
-
+  // initial position
+  moveButton();
 </script>
 
 </body>
