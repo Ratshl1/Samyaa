@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funny Question</title>
+
+<style>
+    body{
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
+        font-family:Arial,sans-serif;
+        overflow:hidden;
+        color:white;
+    }
+
+    /* زخرفة تنانين */
+    .dragon{
+        position:absolute;
+        width:200px;
+        opacity:0.25;
+        filter: drop-shadow(0 0 10px black);
+    }
+
+    .dragon.left{
+        top:20px;
+        left:20px;
+        transform:rotate(-20deg);
+    }
+
+    .dragon.right{
+        bottom:20px;
+        right:20px;
+        transform:rotate(20deg);
+    }
+
+    .box{
+        background:rgba(255,255,255,0.08);
+        padding:40px;
+        border-radius:25px;
+        text-align:center;
+        box-shadow:0 0 40px rgba(0,0,0,0.6);
+        backdrop-filter: blur(10px);
+        position:relative;
+        z-index:2;
+    }
+
+    h1{
+        color:#fff;
+        margin-bottom:30px;
+        font-size:22px;
+    }
+
+    button{
+        padding:12px 30px;
+        font-size:18px;
+        border:none;
+        border-radius:15px;
+        cursor:pointer;
+        margin:10px;
+        transition:0.2s;
+    }
+
+    #yesBtn{
+        background:#4CAF50;
+        color:white;
+    }
+
+    #noBtn{
+        background:#f44336;
+        color:white;
+        position:absolute;
+    }
+
+    #message{
+        margin-top:20px;
+        font-size:22px;
+        font-weight:bold;
+        color:#7CFF7C;
+    }
+</style>
+</head>
+<body>
+
+<!-- تنانين زخرفية (SVG بسيط كرتوني) -->
+<svg class="dragon left" viewBox="0 0 200 200">
+<path fill="black" d="M40,120 C20,80 60,40 100,60 C140,20 180,60 160,100
+C140,140 100,160 80,140 C60,160 40,140 40,120 Z"/>
+</svg>
+
+<svg class="dragon right" viewBox="0 0 200 200">
+<path fill="black" d="M40,120 C20,80 60,40 100,60 C140,20 180,60 160,100
+C140,140 100,160 80,140 C60,160 40,140 40,120 Z"/>
+</svg>
+
+<div class="box">
+    <h1>Is samya a dumb little girl?</h1>
+
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+
+    <div id="message"></div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+
+function moveButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
+
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+document.getElementById("yesBtn").addEventListener("click", () => {
+    document.getElementById("message").innerHTML =
+        "You have good eyes kidoo";
+});
+</script>
+
+</body>
+</html>
