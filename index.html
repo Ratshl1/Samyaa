@@ -9,48 +9,63 @@
   body{
     margin:0;
     height:100vh;
-    font-family: Arial, sans-serif;
     overflow:hidden;
+    font-family: Arial, sans-serif;
     background: radial-gradient(circle at top, #0b1b3a, #050814);
     color:white;
   }
 
-  /* نجوم بسيطة */
-  body::before{
-    content:"";
-    position:absolute;
+  /* نجوم متحركة */
+  .stars{
+    position:fixed;
     width:100%;
     height:100%;
-    background:
-      radial-gradient(2px 2px at 20px 30px, white, transparent),
-      radial-gradient(2px 2px at 80px 120px, white, transparent),
-      radial-gradient(1px 1px at 200px 80px, white, transparent),
-      radial-gradient(1px 1px at 300px 200px, white, transparent),
-      radial-gradient(2px 2px at 400px 50px, white, transparent);
+    top:0;
+    left:0;
+    overflow:hidden;
+    z-index:0;
+  }
+
+  .star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
     opacity:0.6;
-    pointer-events:none;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp{
+    from{
+      transform: translateY(100vh);
+      opacity:0;
+    }
+    to{
+      transform: translateY(-10vh);
+      opacity:1;
+    }
   }
 
   .container{
+    position:relative;
     width:100%;
     height:100%;
-    position:relative;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
+    z-index:2;
   }
 
   h1{
     font-size:22px;
     margin-bottom:20px;
-    z-index:2;
   }
 
   .buttons{
     display:flex;
     gap:15px;
-    z-index:2;
   }
 
   .btn{
@@ -70,30 +85,34 @@
     background:red;
     color:white;
     position:absolute;
+    left:calc(50% + 60px); /* مكان ثابت عند البداية */
+    top:calc(50% + 40px);
   }
 
   #msg{
     margin-top:20px;
     font-size:20px;
     color:yellow;
-    z-index:2;
   }
 
-  /* الصورة أقصى اليمين */
+  /* صورة التنين أقصى اليمين أكثر */
   .dragon{
     position:fixed;
-    right:-40px; /* جزء منها يخرج خارج الشاشة */
+    right:-80px; /* أكثر خروجًا */
     top:50%;
     transform:translateY(-50%);
-    max-width:250px;
+    max-width:280px;
     z-index:1;
     pointer-events:none;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
   }
 
 </style>
 </head>
 
 <body>
+
+<div class="stars" id="stars"></div>
 
 <div class="container">
 
@@ -103,8 +122,9 @@
 
   <div class="buttons">
     <button id="yesBtn" class="btn">yes</button>
-    <button id="noBtn" class="btn">no</button>
   </div>
+
+  <button id="noBtn" class="btn">no</button>
 
   <div id="msg"></div>
 </div>
@@ -114,8 +134,9 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const msg = document.getElementById("msg");
 
+/* زر NO يهرب داخل الشاشة */
 function moveButton(){
-  const padding = 10;
+  const padding = 20;
   const maxX = window.innerWidth - noBtn.offsetWidth - padding;
   const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
@@ -126,6 +147,9 @@ function moveButton(){
   noBtn.style.top = y + "px";
 }
 
+/* عند التحميل لا نغير مكانه (يبقى في البداية) */
+
+/* هروب عند التفاعل */
 noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("click", moveButton);
 
@@ -133,8 +157,20 @@ yesBtn.addEventListener("click", () => {
   msg.textContent = "you have good eyes kidoo";
 });
 
-// أول مكان
-moveButton();
+/* نجوم متحركة */
+const starsContainer = document.getElementById("stars");
+
+for(let i=0;i<40;i++){
+  const star = document.createElement("div");
+  star.className = "star";
+
+  star.style.left = Math.random() * 100 + "vw";
+  star.style.top = Math.random() * 100 + "vh";
+  star.style.animationDuration = (2 + Math.random() * 5) + "s";
+  star.style.opacity = Math.random();
+
+  starsContainer.appendChild(star);
+}
 </script>
 
 </body>
