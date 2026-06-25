@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Funny Question</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{overflow:hidden;height:100vh;font-family:Arial;background:linear-gradient(#08142d,#020611);color:#fff}
+.stars{position:fixed;inset:0;z-index:0}.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s infinite alternate}@keyframes twinkle{from{opacity:.2;transform:scale(1)}to{opacity:1;transform:scale(1.5)}}
+.moon{position:fixed;top:50px;left:70px;width:70px;height:70px;border-radius:50%;background:#f5f5dc;box-shadow:0 0 20px #fff,0 0 40px #fff}
+.dragon{position:fixed;right:-40px;top:50%;transform:translateY(-50%);width:340px;max-width:45vw;z-index:2;pointer-events:none;filter:drop-shadow(0 0 20px cyan) drop-shadow(0 0 40px rgba(0,255,255,.5))}
+.container{position:relative;z-index:100;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.question{font-size:28px;font-weight:bold;margin-bottom:25px}.buttons{display:flex;gap:15px}.btn{padding:12px 30px;border:none;border-radius:12px;color:#fff;font-size:18px;cursor:pointer;box-shadow:0 6px 0 rgba(0,0,0,.35)}.btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.35)}
+#yesBtn{background:linear-gradient(#18d95c,#0a8d37)}#noBtn{background:linear-gradient(#ff5b5b,#c62828)}.message{margin-top:25px;font-size:24px;color:#ffe600}
+</style></head><body>
+<div class="stars" id="stars"></div><div class="moon"></div>
+<img class="dragon" src="Cutouts_1782422520108.png" alt="dragon">
+<div class="container"><div class="question">is samya is a dumb little girl ?</div><div class="buttons"><button id="yesBtn" class="btn">Yes</button><button id="noBtn" class="btn">No</button></div><div id="message" class="message"></div></div>
+<script>
+const s=document.getElementById('stars');for(let i=0;i<80;i++){let d=document.createElement('div');d.className='star';let z=Math.random()*3+1;d.style.width=z+'px';d.style.height=z+'px';d.style.left=Math.random()*100+'%';d.style.top=Math.random()*100+'%';d.style.animationDelay=Math.random()*3+'s';s.appendChild(d);}
+const no=document.getElementById('noBtn'),yes=document.getElementById('yesBtn'),msg=document.getElementById('message');
+function move(){const mw=innerWidth-no.offsetWidth-20,mh=innerHeight-no.offsetHeight-20;no.style.position='fixed';no.style.left=Math.random()*mw+'px';no.style.top=Math.random()*mh+'px';}
+no.addEventListener('mouseover',move);no.addEventListener('click',move);
+yes.onclick=()=>msg.textContent='you have good eyes kidoo';
+</script></body></html>
