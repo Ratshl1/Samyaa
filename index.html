@@ -1,117 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Funny Question</title>
 
 <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
-  margin:0;
-  height:100vh;
-  overflow:hidden;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #0b1b3a, #050814);
-  color:white;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(to bottom,#08142d,#020611);
+    color:white;
 }
 
 /* النجوم */
 .stars{
-  position:fixed;
-  width:100%;
-  height:100%;
-  z-index:0;
-  pointer-events:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    pointer-events:none;
 }
 
 .star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  border-radius:50%;
-  animation: floatUp linear infinite;
-  opacity:0.7;
+    position:absolute;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 3s infinite alternate;
 }
 
-@keyframes floatUp{
-  from{transform:translateY(100vh); opacity:0;}
-  to{transform:translateY(-10vh); opacity:1;}
+@keyframes twinkle{
+    from{
+        opacity:0.2;
+        transform:scale(1);
+    }
+    to{
+        opacity:1;
+        transform:scale(1.5);
+    }
 }
 
-/* التنين خلف كل شيء */
+/* القمر */
+.moon{
+    position:fixed;
+    top:50px;
+    left:70px;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#f5f5dc;
+    box-shadow:
+        0 0 20px #fff,
+        0 0 40px #fff,
+        0 0 60px rgba(255,255,255,0.5);
+    z-index:1;
+}
+
+/* صورة التنين */
 .dragon{
-  position:fixed;
-  right:-90px;
-  top:50%;
-  transform:translateY(-50%);
-  max-width:300px;
-  z-index:0;
-  pointer-events:none;
-  filter: drop-shadow(0 0 25px cyan)
-          drop-shadow(0 0 40px rgba(0,255,255,0.3));
-  opacity:0.9;
+    position:fixed;
+    right:-120px;
+    top:50%;
+    transform:translateY(-50%);
+    width:340px;
+    max-width:45vw;
+    z-index:2;
+    pointer-events:none;
+
+    filter:
+        drop-shadow(0 0 20px rgba(0,255,255,.8))
+        drop-shadow(0 0 40px rgba(0,255,255,.5));
 }
 
 /* المحتوى */
 .container{
-  position:relative;
-  width:100%;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:10;
-  text-align:center;
+    position:relative;
+    z-index:100;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
 }
 
-h1{
-  font-size:22px;
-  margin-bottom:25px;
+.question{
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:25px;
+    text-shadow:0 0 15px rgba(255,255,255,.4);
 }
 
 /* الأزرار */
 .buttons{
-  display:flex;
-  gap:20px;
+    display:flex;
+    gap:15px;
+    position:relative;
 }
 
-/* شكل 3D */
 .btn{
-  padding:12px 28px;
-  font-size:16px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  transition:0.2s;
-  box-shadow:0 6px 0 rgba(0,0,0,0.4);
+    border:none;
+    border-radius:12px;
+    padding:12px 30px;
+    font-size:18px;
+    cursor:pointer;
+    color:white;
+    transition:0.2s;
+    box-shadow:0 6px 0 rgba(0,0,0,.35);
 }
 
 .btn:active{
-  transform:translateY(4px);
-  box-shadow:0 2px 0 rgba(0,0,0,0.4);
+    transform:translateY(4px);
+    box-shadow:0 2px 0 rgba(0,0,0,.35);
 }
 
 #yesBtn{
-  background:linear-gradient(#00c853,#009624);
-  color:white;
+    background:linear-gradient(#18d95c,#0a8d37);
 }
 
 #noBtn{
-  background:linear-gradient(#ff5252,#c62828);
-  color:white;
-  position:absolute;
-  left:calc(50% + 70px);
-  top:calc(50% + 60px);
+    background:linear-gradient(#ff5b5b,#c62828);
 }
 
-/* الرسالة */
-#msg{
-  margin-top:20px;
-  font-size:20px;
-  color:yellow;
-  text-shadow:0 0 10px black;
+.message{
+    margin-top:25px;
+    font-size:24px;
+    color:#ffe600;
+    text-shadow:0 0 10px rgba(255,230,0,.8);
 }
 </style>
 </head>
@@ -119,58 +145,76 @@ h1{
 <body>
 
 <div class="stars" id="stars"></div>
+<div class="moon"></div>
 
-<img class="dragon" src="HEIF Image.heic" alt="dragon">
+<!-- الصورة الجديدة -->
+<img
+    class="dragon"
+    src="Cutouts_1782422520108.png"
+    alt="Dragon">
 
 <div class="container">
 
-  <h1>is samya is a dumb little girl ?</h1>
+    <div class="question">
+        is samya is a dumb little girl ?
+    </div>
 
-  <div class="buttons">
-    <button id="yesBtn" class="btn">yes</button>
-    <button id="noBtn" class="btn">no</button>
-  </div>
+    <div class="buttons" id="buttonContainer">
+        <button id="yesBtn" class="btn">Yes</button>
+        <button id="noBtn" class="btn">No</button>
+    </div>
 
-  <div id="msg"></div>
+    <div id="message" class="message"></div>
+
 </div>
 
 <script>
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const msg = document.getElementById("msg");
-
-/* مكان عشوائي داخل الشاشة */
-function moveButton(){
-  const padding = 20;
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-  noBtn.style.left = Math.random() * maxX + "px";
-  noBtn.style.top = Math.random() * maxY + "px";
-}
-
-/* هروب */
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("click", moveButton);
-
-/* yes */
-yesBtn.addEventListener("click", () => {
-  msg.textContent = "you have good eyes kidoo";
-});
-
-/* نجوم */
+// إنشاء النجوم
 const starsContainer = document.getElementById("stars");
 
-for(let i=0;i<50;i++){
-  const star = document.createElement("div");
-  star.className = "star";
+for(let i=0;i<80;i++){
+    const star = document.createElement("div");
+    star.classList.add("star");
 
-  star.style.left = Math.random() * 100 + "vw";
-  star.style.top = Math.random() * 100 + "vh";
-  star.style.animationDuration = (2 + Math.random() * 6) + "s";
+    const size = Math.random()*3 + 1;
 
-  starsContainer.appendChild(star);
+    star.style.width = size + "px";
+    star.style.height = size + "px";
+    star.style.left = Math.random()*100 + "%";
+    star.style.top = Math.random()*100 + "%";
+    star.style.animationDelay = Math.random()*3 + "s";
+
+    starsContainer.appendChild(star);
 }
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
+
+// زر No يهرب
+function moveNoButton(){
+
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    const maxX = window.innerWidth - btnWidth - 20;
+    const maxY = window.innerHeight - btnHeight - 20;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("click", moveNoButton);
+
+// زر Yes
+yesBtn.addEventListener("click", () => {
+    message.textContent = "you have good eyes kidoo";
+});
 </script>
 
 </body>
