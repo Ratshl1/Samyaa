@@ -3,127 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Funny Question</title>
+<title>Samya Test</title>
 
 <style>
-    body{
-        margin:0;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
-        font-family:Arial,sans-serif;
-        overflow:hidden;
-        color:white;
-    }
 
-    /* زخرفة تنانين */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b,#020617);
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    position:relative;
+}
+
+/* Dragon */
+
+.dragon{
+    position:absolute;
+    right:0;
+    bottom:0;
+    height:100vh;
+    max-width:45%;
+    object-fit:contain;
+    pointer-events:none;
+    filter:
+        drop-shadow(0 0 20px rgba(255,255,255,.2))
+        drop-shadow(0 0 40px rgba(255,255,255,.1));
+}
+
+/* Main Card */
+
+.container{
+    z-index:10;
+    text-align:center;
+
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    padding:40px;
+    border-radius:25px;
+
+    box-shadow:
+        0 0 30px rgba(255,255,255,.08);
+}
+
+h1{
+    font-size:2rem;
+    margin-bottom:30px;
+}
+
+/* Buttons Area */
+
+.buttons{
+    position:relative;
+    width:320px;
+    height:160px;
+    margin:auto;
+}
+
+button{
+    border:none;
+    border-radius:15px;
+    padding:14px 35px;
+    font-size:20px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+#yesBtn{
+    background:#22c55e;
+    color:white;
+    margin-right:20px;
+}
+
+#yesBtn:hover{
+    transform:scale(1.08);
+}
+
+#noBtn{
+    background:#ef4444;
+    color:white;
+    position:absolute;
+    left:180px;
+    top:0;
+}
+
+.message{
+    margin-top:25px;
+    font-size:28px;
+    font-weight:bold;
+    color:#7cff7c;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
     .dragon{
-        position:absolute;
-        width:200px;
-        opacity:0.25;
-        filter: drop-shadow(0 0 10px black);
-    }
-
-    .dragon.left{
-        top:20px;
-        left:20px;
-        transform:rotate(-20deg);
-    }
-
-    .dragon.right{
-        bottom:20px;
-        right:20px;
-        transform:rotate(20deg);
-    }
-
-    .box{
-        background:rgba(255,255,255,0.08);
-        padding:40px;
-        border-radius:25px;
-        text-align:center;
-        box-shadow:0 0 40px rgba(0,0,0,0.6);
-        backdrop-filter: blur(10px);
-        position:relative;
-        z-index:2;
+        opacity:.6;
+        max-width:60%;
     }
 
     h1{
-        color:#fff;
-        margin-bottom:30px;
-        font-size:22px;
+        font-size:1.3rem;
     }
 
-    button{
-        padding:12px 30px;
-        font-size:18px;
-        border:none;
-        border-radius:15px;
-        cursor:pointer;
-        margin:10px;
-        transition:0.2s;
+    .container{
+        width:90%;
     }
+}
 
-    #yesBtn{
-        background:#4CAF50;
-        color:white;
-    }
-
-    #noBtn{
-        background:#f44336;
-        color:white;
-        position:absolute;
-    }
-
-    #message{
-        margin-top:20px;
-        font-size:22px;
-        font-weight:bold;
-        color:#7CFF7C;
-    }
 </style>
 </head>
 <body>
 
-<!-- تنانين زخرفية (SVG بسيط كرتوني) -->
-<svg class="dragon left" viewBox="0 0 200 200">
-<path fill="black" d="M40,120 C20,80 60,40 100,60 C140,20 180,60 160,100
-C140,140 100,160 80,140 C60,160 40,140 40,120 Z"/>
-</svg>
+<img src="HEIF%20Image.heic" class="dragon">
 
-<svg class="dragon right" viewBox="0 0 200 200">
-<path fill="black" d="M40,120 C20,80 60,40 100,60 C140,20 180,60 160,100
-C140,140 100,160 80,140 C60,160 40,140 40,120 Z"/>
-</svg>
+<div class="container">
 
-<div class="box">
-    <h1>Is samya a dumb little girl?</h1>
+<h1>Is Samya a dumb little girl?</h1>
 
+<div class="buttons">
     <button id="yesBtn">Yes</button>
     <button id="noBtn">No</button>
+</div>
 
-    <div id="message"></div>
+<div id="message" class="message"></div>
+
 </div>
 
 <script>
+
 const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
 
-function moveButton() {
-    const maxX = window.innerWidth - noBtn.offsetWidth;
-    const maxY = window.innerHeight - noBtn.offsetHeight;
+noBtn.addEventListener("click", () => {
 
-    noBtn.style.left = Math.random() * maxX + "px";
-    noBtn.style.top = Math.random() * maxY + "px";
-}
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
 
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("click", moveButton);
+    const maxX = window.innerWidth - btnWidth - 10;
+    const maxY = window.innerHeight - btnHeight - 10;
 
-document.getElementById("yesBtn").addEventListener("click", () => {
-    document.getElementById("message").innerHTML =
-        "You have good eyes kidoo";
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
 });
+
+yesBtn.addEventListener("click", () => {
+
+    message.innerHTML =
+    "You have good eyes kiddo 😎";
+
+});
+
 </script>
 
 </body>
